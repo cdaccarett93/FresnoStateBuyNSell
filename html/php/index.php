@@ -1,5 +1,5 @@
 <?php
-    header( 'Location: ../html/index.html' );
+    header( 'Location: /index.html' );
     ini_set('display_errors',1);
     error_reporting(E_ALL);
     session_start();
