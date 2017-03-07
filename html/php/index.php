@@ -56,16 +56,16 @@
                 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])){
                     if($user->register()){ //if success creating user
                         //display splash page for registration
-                        include "/registered.html";
+                        include "registered.html";
                     }
                     else{
                         //error creating user or user email already exists
-                        include "/registererror.html";  //display registration form w/ existing username/email/error message
+                        include "registererror.html";  //display registration form w/ existing username/email/error message
                     }
                 }
                 else{
                     //display registration form
-                    include "/register.html";
+                    include "register.html";
                 }
                 break;
             default:
