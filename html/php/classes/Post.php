@@ -1,9 +1,9 @@
 <?php
-    ini_set('display_errors',1); 
+    ini_set('display_errors',1);
     error_reporting(E_ALL);
     require_once "DB.php";
     class Post{
-        
+
         public function getPosts(){
             if(isset($_POST['searchSubmit'])){
                 $filters = array();
@@ -32,11 +32,11 @@
                 array_push($posts, $post);
             }
             $categories = $this->getPostCategories();
-            require_once "../html/header_style2.html"; //header
+            require_once "header_style2.html"; //header
             require_once "views/listings.php";
-            require_once "../html/footer.html"; //footer
+            require_once "footer.html"; //footer
         }
-        
+
         public function getPostDetails(){
             $db = new DB();
             $postID = $_GET["post-id"];
@@ -46,9 +46,9 @@
             $sql = "SELECT UserID, FirstName, LastName FROM users WHERE UserID = $userID;"; //get User details (probably just name fields and id)
             $userReturn = $db->query($sql)->fetch(PDO::FETCH_ASSOC);
             $comments = $this->getComments($postID);
-            require_once "../html/header_style2.html"; //header
+            require_once "header_style2.html"; //header
             require_once "views/listing.php";
-            require_once "../html/footer.html"; //footer
+            require_once "footer.html"; //footer
         }
 
         public function getFilteredQuery($filters){
@@ -111,7 +111,7 @@
             }
             return $categories;
         }
-        
+
         public function createPost(){
             $db = new DB();
             $target_file = "/uploads/listing_pics/".basename($_FILES["pic"]["name"]);
@@ -126,7 +126,7 @@
             $sql = "INSERT INTO products (UserID, ProductName, CategoryID, Price, Description, PicturePath) VALUES ($userID, '$productname', $categoryID, $price, '$description', '$picturepath'); "; //insert new posts
             $db->execute($sql);
         }
-        
+
         public function markSold(){
             $postID = $_GET["post-id"];
             $currUserID = $_SESSION["Current_User"];
@@ -142,7 +142,7 @@
                 return true;
             }
         }
-        
+
         public function addComment(){
             $db = new DB();
             $currUserID = $_SESSION["Current_User"];
@@ -151,7 +151,7 @@
             $sql = "INSERT INTO comments (ProductID, UserID, Comment) VALUES ($postID, $currUserID, '$comment');";
             $db->execute($sql);
         }
-        
+
         public function getComments($postID){
             $db = new DB();
             $sql = "SELECT * FROM comments WHERE ProductID = $postID ORDER BY CommentTimeStamp ASC;"; //get all comments for a post
@@ -171,5 +171,5 @@
             }
             return $comments;
         }
-        
+
     }

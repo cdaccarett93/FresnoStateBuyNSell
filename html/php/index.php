@@ -36,7 +36,7 @@
         switch($option){
             case null:
                 //Home page (for users not logged in)
-                include "../html/index.html";
+                include "index.html";
                 break;
             case "login":
                 if(isset($_POST['email']) && isset($_POST['password'])){
@@ -44,28 +44,28 @@
                         header('Location: index.php'); //redirect to home page if success
                     }
                     else{
-                        include "../html/signinerror.html";  //display login form with wrong username/password message
+                        include "signinerror.html";  //display login form with wrong username/password message
                     }
                 }
                 else{
                     //display login form
-                    include "../html/signin.html";
+                    include "signin.html";
                 }
                 break;
             case "register":
                 if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])){
                     if($user->register()){ //if success creating user
                         //display splash page for registration
-                        include "../html/registered.html";
+                        include "registered.html";
                     }
                     else{
                         //error creating user or user email already exists
-                        include "../html/registererror.html";  //display registration form w/ existing username/email/error message
+                        include "registererror.html";  //display registration form w/ existing username/email/error message
                     }
                 }
                 else{
                     //display registration form
-                    include "../html/register.html";
+                    include "register.html";
                 }
                 break;
             default:

@@ -1,5 +1,5 @@
 <?php
-    ini_set('display_errors',1); 
+    ini_set('display_errors',1);
     error_reporting(E_ALL);
     require_once "DB.php";
     class User{
@@ -26,7 +26,7 @@
                 return true;  //add to logic so that this won't return if there is an error in db execution
             }
         }
-        
+
         public function login(){
             session_start();
             $email = $_POST['email'];
@@ -44,15 +44,15 @@
                 $_SESSION["Email_Validated"] = $return["EmailValidated"];
                 return true;
             }
-            
+
         }
-        
+
         public function logout(){
             session_unset();
         }
 
         public function sendEmail($recipient, $emailBody){
-            
+
         }
 
         public function sendValidationEmail(){
@@ -97,7 +97,7 @@
                 return true;
             }
         }
-        
+
         public function getUserProfile(){
             $db = new DB();
             $userID = (isset($_GET["user-id"]) ? $_GET["user-id"] : ($_SESSION["Current_User"]));
@@ -114,11 +114,11 @@
             }
             $userImg = ($return["PicturePath"] != null ? $return["PicturePath"] : "/FresnoStateBuyNSell/img/default_user.png");
 
-            require_once "../html/header_style2.html"; //header
+            require_once "header_style2.html"; //header
             require_once "views/userprofile.php";
-            require_once "../html/footer.html"; //footer
+            require_once "footer.html"; //footer
         }
-        
+
         public function review(){
             $db = new DB();
             $profileID = $_GET["user-id"];
@@ -128,7 +128,7 @@
             $sql = "INSERT INTO reviews (CommenterID, ProfileID, StarRating, ReviewText) VALUES ($commenterID, $profileID, $starRating, '$reviewText');"; //inserting review record
             $db->execute($sql);
         }
-        
+
         public function getReviews($userID){
             $db = new DB();
             //updated query to for reviews to be sorted by time?
@@ -168,8 +168,7 @@
             echo $sql;
             $db->execute($sql);
         }
-    
+
     }
-    
+
  ?>
- 
